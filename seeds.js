@@ -27,8 +27,7 @@ function seedDB(){
   console.log("remove campground")
     /////////adding campground///////////////
      
-  });
-   data.forEach(function(seed){
+    data.forEach(function(seed){
         Campground.create(seed, function(err,campground){ 
       if(err){
         console.log(err)
@@ -37,21 +36,23 @@ function seedDB(){
         
         ////// ////comments//////////////
         
-//           Comment.create(
-//           {
-//             text:"need more",
-//             author:"saurabh"
-//           },function(err,comment){
-//             if(err){
-//               console.log(err)
-//             } else{
-//               campground.comments.push(comment);
-//               campground.save();
-//             }
-//           });
+          Comment.create(
+          {
+            text:"need more",
+            author:"saurabh"
+          },function(err,comment){
+            if(err){
+              console.log(err)
+            } else{
+              campground.comments.push(comment);
+              campground.save();
+            }
+          });
       }
     }); 
 });
+  });
+   
 }
 
 module.exports = seedDB;

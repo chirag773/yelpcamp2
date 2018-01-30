@@ -4,7 +4,7 @@
   <div class="row">
       <h1>Add  new comment to <%= campground.name %></h1>
     <div id = "frm">
-    <form id="frm1" action="/campgrounds/<%= campground._id %>/comments/new" method="POST">
+    <form id="frm1" action="/campgrounds/<%= campground._id %>/comments" method="POST">
       <div class="form-group">
         <input type="text" placeholder="name" name="comment[text]">
       </div>
