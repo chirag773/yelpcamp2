@@ -15,7 +15,7 @@ var data = [
      {
        name:"fire",
        image:"https://farm5.staticflickr.com/4496/36934455643_2e9eb1d50a.jpg", 
-       description:"hill view"
+       description:"born fire"
   }
 ]
 
@@ -26,39 +26,32 @@ function seedDB(){
   }
   console.log("remove campground")
     /////////adding campground///////////////
-      data.forEach(function(seed){
-    Campground.create(seed, function(err,campground){ 
+     
+  });
+   data.forEach(function(seed){
+        Campground.create(seed, function(err,campground){ 
       if(err){
         console.log(err)
       } else {
         console.log("campground added")
         
-        //////////comments//////////////
+        ////// ////comments//////////////
         
-//         Comment.create(
+//           Comment.create(
 //           {
-//           text:"need some more like this",
-//           author:"saurabh"
-//         },function(err,comment){
-//           if(err){
-//             console.log(err)
-//           } else{
-//             campground.comments.push(comment);
-//             campground.save();
-//             console.log("new comment");
-//           }
-//         }); 
+//             text:"need more",
+//             author:"saurabh"
+//           },function(err,comment){
+//             if(err){
+//               console.log(err)
+//             } else{
+//               campground.comments.push(comment);
+//               campground.save();
+//             }
+//           });
       }
     }); 
-  });
 });
 }
-
-
-
-
-
-
-
 
 module.exports = seedDB;
