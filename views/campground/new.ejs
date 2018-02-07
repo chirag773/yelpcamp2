@@ -3,26 +3,35 @@
 <div class="container">
   <div class="row">
       <h1>Create A New CampGround</h1>
+    <div id="frm">
     <form action="/campgrounds" method="POST">
       <div class="form-group">
-        <input type="text" placeholder="name" name="name">
+        <input class="form-control" type="text" placeholder="name" name="name">
       </div>
       <div class="form-group">
-        <input type="text" placeholder="image url" name="image">
+        <input class="form-control" type="text" placeholder="image url" name="image">
       </div>
        <div class="form-group">
-        <input type="text" placeholder="description" name="description">
+        <input class="form-control" type="text" placeholder="description" name="description">
       </div>
       <div class="form-group">
-        <button class="btn btn-success">submit</button>
+        <button class="btn btn-block btn-lg  btn-success">submit</button>
       </div>
-      <a class="btn btn-success" href="/campgrounds">GO BACK</a>
+      <a class="btn btn-block btn-lg btn-success" href="/campgrounds">GO BACK</a>
     </form>
+      </div>
   </div>
 </div>
 
 
 <style>
-  
+   h1{
+    text-align:center;
+  }
+  #frm{
+    width:30%;
+    margin:25px auto;
+    border-radius:2px solid red;
+  }
 
 </style>

@@ -6,15 +6,15 @@
     <div id = "frm">
     <form id="frm1" action="/campgrounds/<%= campground._id %>/comments" method="POST">
       <div class="form-group">
-        <input type="text" placeholder="name" name="comment[text]">
+        <input class="form-control" type="text" placeholder="text" name="comment[text]">
       </div>
       <div class="form-group">
-        <input type="text" placeholder="comment" name="comment[author]">
+        <input class="form-control" type="text" placeholder="author" name="comment[author]">
       </div>
       <div class="form-group">
-        <button class="btn btn-lg btn-success btn-block">submit</button>
+        <button class="btn btn-block btn-lg btn-success ">submit</button>
       </div>
-      <a class="btn btn-success" href="/campgrounds">GO BACK</a>
+      <a class="btn btn-block btn-lg btn-success" href="/campgrounds">GO BACK</a>
     </form>
       </div>
   </div>

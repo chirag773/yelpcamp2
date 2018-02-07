@@ -1,16 +1,32 @@
-var express      = require('express');
-var app          = express();
-var bodyParser   = require('body-parser');
-var mongoose     = require('mongoose');
-var Campground   = require("./models/campground");
-var Comment      = require("./models/comment") 
-var seedDB       = require("./seeds");
+var express        = require('express');
+var app            = express();
+var bodyParser     = require('body-parser');
+var mongoose       = require('mongoose');
+var passport       = require('passport');
+var LocalStrategy  = require('passport-local');
+var Campground     = require("./models/campground");
+var Comment        = require("./models/comment") ;
+var User           = require("./models/user");
+var seedDB         = require("./seeds");
 
 seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
 
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended: true}));
+
+///////////////////////passpport config////////////////////////////////////////////////////
+app.use(require("express-session")({
+  secret:"THIS IS SECRET",
+  resave:false,
+  saveUninitialized:false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser);
+passport.deserializeUser(User.deserializeUser);
 
 
 //////////////////////////////////home page//////////////////////////////////////////////////////// 
@@ -77,11 +93,11 @@ app.get("/campgrounds/:id",function(req, res){
 // ========================
 
 app.get("/campgrounds/:id/comments/new",function(req,res){
-   Campground.findById(req.params.id,function(err,commentCampground){
+   Campground.findById(req.params.id,function(err,campground){
     if(err){
       console.log(err)
     } else{
-       res.render("comments/new",{campground:commentCampground});
+       res.render("comments/new",{campground:campground});
     }
   });
 });
@@ -91,7 +107,7 @@ app.get("/campgrounds/:id/comments/new",function(req,res){
 
 
 app.post("/campgrounds/:id/comments",function(req,res){
-   Campground.findById(req.params.id,function(err,commentCampground){
+   Campground.findById(req.params.id,function(err,campground){
     if(err){
       console.log(err)
     } else{
@@ -106,6 +122,28 @@ app.post("/campgrounds/:id/comments",function(req,res){
       });
        
     }
+  });
+});
+
+///========================
+/// user
+///========================
+
+app.get("/register", function(req, res){
+  res.render("campground/register");
+});
+
+
+app.post("/register",function(req,res){
+  var newUser = new User({username:req.body.username});
+  User.register(newUser, req.body.password, function(err, user){
+    if(err){
+      console.log(err)
+      return res.render("register")
+    }
+    passport.authenticate("local")(req, res, function(){
+      res.redirect("/campgrounds");
+    });
   });
 });
 
