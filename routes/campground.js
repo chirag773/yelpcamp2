@@ -4,7 +4,7 @@ var Campground = require("../models/campground");
 
 //============================================================campground get route================================================//
 
-router.get("/campgrounds",function(req, res){
+router.get("/campgrounds", isLoggedIn ,function(req, res){
 //   getting info from db
   Campground.find({},function(err, dbCampground){
     if(err){
@@ -16,11 +16,17 @@ router.get("/campgrounds",function(req, res){
 });
 
 //============================================================campground post route================================================//
-router.post("/campgrounds",function(req, res){
+
+router.post("/campgrounds", isLoggedIn, function(req, res){
   var name = req.body.name;
   var image = req.body.image;
-  var description = req.body.description
-  var newCampground ={name: name,image: image, description:description};
+  var description = req.body.description;
+  var author = {
+    id: req.user._id,
+    username:req.user.username
+  };
+  console.log(author);
+  var newCampground ={name: name,image: image, description:description, author:author};
   Campground.create(newCampground,function(err, newlyCampground){
     if(err){
       console.log(err);
@@ -34,7 +40,7 @@ router.post("/campgrounds",function(req, res){
 //==============================================================new camp grpund form================================================//
 
 
-router.get("/campgrounds/new",function(req, res){
+router.get("/campgrounds/new",isLoggedIn,function(req, res){
   res.render("campground/new");
 });
 
@@ -54,5 +60,59 @@ router.get("/campgrounds/:id",function(req, res){
     }
   });
 });
+
+
+
+
+// //=============================================================update get route================================================//
+
+router.get("/campgrounds/:id/edit",isLoggedIn,function(req, res){
+   Campground.findById(req.params.id, function(err,foundCampground){
+      if(err){
+    console.log(err)
+} else{
+  res.render("campground/edit",{campground:foundCampground})
+  
+  }
+   });
+});
+
+
+// //=============================================================update route================================================//
+
+router.put("/campgrounds/:id",isLoggedIn, function(req, res){
+  Campground.findByIdAndUpdate(req.params.id, req.body.campground ,function(err,updateCamground){
+     if(err){
+    console.log(err)
+} else{
+  res.redirect("/campgrounds/" + req.params.id);
+  }
+   });
+});
+
+
+// //=============================================================delete route================================================//
+
+router.delete("/campgrounds/:id",isLoggedIn,function(req,res){
+  Campground.findByIdAndRemove(req.params.id, function(err){
+     if(err){
+    console.log(err)
+} else{
+  res.redirect("/campgrounds");
+  }
+   });
+});
+
+
+// //=============================================================middle ware================================================//
+
+
+function isLoggedIn(req,res,next){
+  if(req.isAuthenticated()){
+    return next();
+  }else{
+    res.redirect("/login");
+  }
+}
 
 module.exports = router;

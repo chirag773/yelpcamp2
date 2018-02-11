@@ -12,10 +12,12 @@ var seedDB            = require("./seeds");
 var campgroundRoutes  = require("./routes/campground");
 var commentRoutes     = require("./routes/comment");
 var indexRoutes       = require("./routes/index");
+var methodOverride    = require('method-override'); 
+
 
 // seedDB(); terminate seeds//
 mongoose.connect("mongodb://localhost/yelp_camp");
-
+app.use(methodOverride("_method"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -51,6 +53,9 @@ app.use(function(req,res,next){
 app.use(indexRoutes);
 app.use(campgroundRoutes);
 app.use(commentRoutes);
+
+
+
 
 
 

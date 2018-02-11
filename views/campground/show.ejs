@@ -4,10 +4,18 @@
 <img src="<%= campground.image %>" >
 
 <h3><%= campground.description %></h3>
+ <p>
+   <em>created by</em> <strong><%= campground.author.username %></strong>
+ </p>
+<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit">Update</a>
+     <form id="delete" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+       <button class="btn btn-primary">Delete</button>
+     </form>
 
 <a class="btn btn-lg btn-primary" href="/campgrounds/<%= campground._id %>/comments/new">add comment</a>
 
 <% campground.comments.forEach(function(comment){ %>
+
  <p>
   <strong><%= comment.author.username %></strong> - <%= comment.text %>
  </p>

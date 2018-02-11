@@ -2,9 +2,16 @@
    <head>
     <title>yelp camp</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
   </head>
+     <style>
+   body{
+    background-color:#156B72;
+    color:#0A044D;
+  }
+       </style>
     <body>
-       <div class="navbar navbar-default">
+       <nav class="navbar navbar-default">
          <div class="container-fluid">
            <div class="navbar-header">
              <a class="navbar-brand" href="/">Yelpcamp</a>
@@ -15,11 +22,11 @@
                  <li><a href="/login">Login</a></li>
                  <li><a href="/register">Sign Up</a></li>
              <% }else{ %>
-               <li><a href="#"><%= currentUser.username%></a></li>
+               <li><a href="/campgrounds"><%= currentUser.username%></a></li>
                   <li><a href="/logout">Log Out</a></li>
               <% } %>
                  
              </ul>
            </div>
          </div>
-      </div>
+      </nav>
