@@ -13,7 +13,7 @@ var campgroundRoutes  = require("./routes/campground");
 var commentRoutes     = require("./routes/comment");
 var indexRoutes       = require("./routes/index");
 var methodOverride    = require('method-override'); 
-
+// app.use(express.static(__dirname + "/public"));
 
 // seedDB(); terminate seeds//
 mongoose.connect("mongodb://localhost/yelp_camp");

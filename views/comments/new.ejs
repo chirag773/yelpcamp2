@@ -9,9 +9,9 @@
         <input class="form-control" type="text" placeholder="text" name="comment[text]">
       </div>
       <div class="form-group">
-        <button class="btn btn-block btn-lg btn-success ">submit</button>
+        <button id="submit">submit</button>
       </div>
-      <a class="btn btn-block btn-lg btn-success" href="/campgrounds">GO BACK</a>
+      <a id="back" href="/campgrounds">GO BACK</a>
     </form>
       </div>
   </div>
@@ -19,6 +19,21 @@
 
 
 <style>
+   #submit{
+      border:solid 3px black;
+      text-shadow:2px 2px black ;
+      font-size:25px;
+      height:9%;
+      transition: all 200ms ease-in-out;
+      color:white;
+      background-color:#33FFE0;
+      font-family: 'Overpass Mono', monospace;
+      width:100%;
+  }
+  
+  #back{
+    color:#0A044D;
+  }
   
   h1{
     text-align:center;

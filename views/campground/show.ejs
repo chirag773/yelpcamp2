@@ -1,22 +1,59 @@
 <% include ../partials/header %>
-<h1><%= campground.name %></h1>
 
-<img src="<%= campground.image %>" >
 
-<h3><%= campground.description %></h3>
- <p>
-   <em>created by</em> <strong><%= campground.author.username %></strong>
- </p>
-<a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit">Update</a>
+<div class="row">
+  <div class="col col-lg-8 col-md-8 col-sm-12">
+    <div class="img-thumbnail"> 
+    <img class="img-fluid img-responsive" src="<%= campground.image %>" >
+      <strong><%= campground.name %></strong>
+      <hr>
+      <p class="desc"><strong>Descriptions</strong> :- <%= campground.description %></p>
+     <p>
+       <em>created by</em> <strong><%= campground.author.username %></strong>
+     </p>
+    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Update</a>
      <form id="delete" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-       <button class="btn btn-primary">Delete</button>
+       <button class="btn btn-danger">Delete</button>
      </form>
+      <div class="pull-right">
+         <a class="btn  btn-primary btn-sm" href="/campgrounds/<%= campground._id %>/comments/new">add comment</a>
+      </div>
+     </div>
+    </div>
+   
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div class="well">
+      <% campground.comments.forEach(function(comment){ %>
+      <strong><%= comment.author.username %></strong>
+     <p>
+       <%= comment.text %>
+    </p>
+      <form id="delete" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+         <button class="btn btn-xs btn-danger">Delete</button>
+       </form>
+    <hr>
+     <% }); %>
+    </div>
+    
+  </div>
+</div>
 
-<a class="btn btn-lg btn-primary" href="/campgrounds/<%= campground._id %>/comments/new">add comment</a>
 
-<% campground.comments.forEach(function(comment){ %>
+<style>
+  
+#delete{
+        display:inline;
+      }
+  .thumbnail{
+    padding:0;
+    background:#478EAB;
+  }
+  
+  .thumbnail img{
+    width:100%;
+  }
+  .desc{
+    padding:9px;
+  }
 
- <p>
-  <strong><%= comment.author.username %></strong> - <%= comment.text %>
- </p>
-<% }); %>
+</style>

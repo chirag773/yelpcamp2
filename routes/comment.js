@@ -42,6 +42,22 @@ router.post("/campgrounds/:id/comments", isLoggedIn ,function(req,res){
   });
 });
 
+
+//========================================================Commemts delete route================================================//
+
+
+
+
+router.delete("/campgrounds/:id/comments/:comment_id",correctUser,function(req,res){
+  Comment.findByIdAndRemove(req.params.comment_id, function(err){
+     if(err){
+    console.log(err)
+} else{
+res.redirect("/campgrounds/" + req.params.id);
+}
+   });
+});
+
 //=============================================================middle ware================================================//
 
 
@@ -50,6 +66,29 @@ function isLoggedIn(req,res,next){
     return next();
   }else{
     res.redirect("/login");
+  }
+}
+
+
+
+function correctUser(req,res,next){
+  if(req.isAuthenticated()){
+      Comment.findById(req.params.comment_id, function(err,foundComment){
+        if(err){
+      res.redirect("back");
+    } else{
+      //if its owner
+      if(foundComment.author.id.equals(req.user._id)){
+//             res.render("campground/edit",{campground:foundCampground})
+        next();
+      }else{
+        res.redirect("back");
+      }
+
+    }
+     });
+  }else{
+    res.send("you are not a author of this so can't delete this please go back")
   }
 }
 
