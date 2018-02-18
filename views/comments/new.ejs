@@ -2,6 +2,8 @@
 
 <div class="container">
   <div class="row">
+    <div class="col col-lg-4 col-sm-0 col-xs-0 "> </div>
+    <div class="col col-lg-4 col-sm-12 col-xs-12 ">
       <h1>Add  new comment to <%= campground.name %></h1>
     <div id = "frm">
     <form id="frm1" action="/campgrounds/<%= campground._id %>/comments" method="POST">
@@ -14,12 +16,26 @@
       <a id="back" href="/campgrounds">GO BACK</a>
     </form>
       </div>
+      <div class="col col-lg-4 col-sm-0 col-xs-0 "> </div>
   </div>
 </div>
 
 
 <style>
    #submit{
+      border:dashed 3px whitesmoke;
+      text-shadow:2px 2px black ;
+      font-size:25px;
+      height:70px;
+/*       margin-top:50px; */
+/*       margin-left:70px; */
+      transition: all 200ms ease-in-out;
+      color:white;
+      background-color:#33FFE0;
+      font-family: 'Overpass Mono', monospace;
+      width:100%;
+  }
+/*    #submit{
       border:solid 3px black;
       text-shadow:2px 2px black ;
       font-size:25px;
@@ -29,7 +45,7 @@
       background-color:#33FFE0;
       font-family: 'Overpass Mono', monospace;
       width:100%;
-  }
+  } */
   
   #back{
     color:#0A044D;
@@ -39,8 +55,8 @@
     text-align:center;
   }
   #frm{
-    width:30%;
-    margin:25px auto;
+/*     width:30%; */
+/*     margin:25px auto; */
     border-radius:2px solid red;
   }
   

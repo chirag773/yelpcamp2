@@ -2,6 +2,8 @@
  
 <div class="container">
   <div class="row">
+    <div class="col col-lg-4 col-sm-0 col-xs-0 "> </div>
+    <div class="col col-lg-4 col-sm-12 col-xs-12 ">
       <h1>Editing <%= campground.name %></h1>
     <div id="frm">
     <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
@@ -19,6 +21,7 @@
       </div>
       <a id="back" href="/campgrounds">GO BACK</a>
     </form>
+      <div class="col col-lg-4 col-sm-0 col-xs-0 "> </div>
       </div>
   </div>
 </div>
@@ -35,8 +38,8 @@
     text-align:center;
   }
   #frm{
-    width:30%;
-    margin:25px auto;
+/*     width:30%; */
+/*     margin:25px auto; */
     border-radius:2px solid red;
   }
 

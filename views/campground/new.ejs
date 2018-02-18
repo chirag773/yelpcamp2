@@ -1,7 +1,9 @@
 <% include ../partials/header %>
 
 <div class="container">
-  <div class="row">
+    <div class="row">
+  <div class="col col-lg-4 col-sm-0 col-xs-0 "> </div>
+    <div class="col col-lg-4 col-sm-12 col-xs-12 ">
       <h1>Create A New CampGround</h1>
     <div id="frm">
     <form action="/campgrounds" method="POST">
@@ -21,7 +23,10 @@
     </form>
       </div>
   </div>
+      <div class="col col-lg-4 col-sm-0 col-xs-0 "> </div>
 </div>
+  </div>
+  
 
 
 <style>
@@ -33,10 +38,11 @@
   }
    h1{
     text-align:center;
+     
   }
   #frm{
-    width:30%;
-    margin:25px auto;
+/*     width:30%; */
+/*     margin:25px auto; */
     border-radius:2px solid red;
   }
 
