@@ -107,17 +107,17 @@ router.post('/forgot', function(req, res, next) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
         auth: {
-          user: 'learntocodeinfo@gmail.com',
-          pass: process.env.GMAILPW
+          user: 'chiragprajapati781@gmail.com',
+          pass: process.env.GMAILPASSWORD
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'learntocodeinfo@gmail.com',
+        from: 'chiragprajapati781@gmail.com',
         subject: 'Node.js Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'https://' + req.headers.host + '/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -131,6 +131,11 @@ router.post('/forgot', function(req, res, next) {
     res.redirect('/forgot');
   });
 });
+
+
+
+//==============================token=======================//
+
 
 router.get('/reset/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
@@ -171,16 +176,16 @@ router.post('/reset/:token', function(req, res) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
         auth: {
-          user: 'learntocodeinfo@gmail.com',
-          pass: process.env.GMAILPW
+          user: 'chiragprajapati781@gmail.com',
+          pass: process.env.GMAILPASSWORD
         }
       });
       var mailOptions = {
         to: user.email,
-        from: 'learntocodeinfo@mail.com',
+        from: 'chiragprajapati781@gmail.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
-          'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+          'This is a confirmation that the password for your account ' + user.email + ' for https://' + req.headers.host + ' site has just been changed.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
         req.flash('success', 'Success! Your password has been changed.');
@@ -191,22 +196,6 @@ router.post('/reset/:token', function(req, res) {
     res.redirect('/campgrounds');
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
