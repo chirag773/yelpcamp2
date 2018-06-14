@@ -1,14 +1,27 @@
 <% include ../partials/header %>
-<!-- <div class="container"> -->
+<!-- <div class="container"> --><div class="container">
   <header class="jumbotron">
-    <div class="container">
+    
     <h1>This is Camping Page</h1>
       <a class="btn btn-info" href="/campgrounds/new">add new campground</a>
+    
+    <div>
+      <form action="/campgrounds" method="GET" class="form-inline">
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="search.."  name="search">
+        <input class="btn btn-default" type="submit">
+      </div>
+      </form>
     </div>
-      
-</header>
+      </div>
+   </header>
   
   <div class="row" style="display:flex; flex-wrap:wrap;">
+    <div class="col-lg-12">
+    <% if( noMatch !== null){%>
+    <h3><%= noMatch %></h3>
+    <%}%>
+      </div>
     <% campgrounds.forEach(function(campground){ %>
       <div class=" col-lg-3 col-md-3 col-sm-6">
         <div class="thumbnail">

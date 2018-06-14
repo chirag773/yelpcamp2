@@ -4,16 +4,39 @@ var Campground = require("../models/campground");
 
 //============================================================campground get route================================================//
 
-router.get("/campgrounds", isLoggedIn ,function(req, res){
-//   getting info from db
+router.get("/campgrounds",function(req, res){
+  var noMatch = null;
+  if(req.query.search){
+     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Campground.find({name: regex},function(err, dbCampground){
+    if(err){
+      console.log(err);
+      res.send("no match found")
+    }else{
+      
+      if(dbCampground.length < 1){
+        noMatch = "no result found please check the spell";
+      }
+              res.render("campground/campgrounds",{campgrounds: dbCampground,currentUser:req.user,noMatch:noMatch});
+    }
+  });
+  }else{
+    //   getting info from db
   Campground.find({},function(err, dbCampground){
     if(err){
       console.log(err);
     }else{
-      res.render("campground/campgrounds",{campgrounds: dbCampground,currentUser:req.user});
+      res.render("campground/campgrounds",{campgrounds: dbCampground,currentUser:req.user,noMatch:noMatch});
     }
-  });  
+  });
+  }
+  
 });
+
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 //============================================================campground post route================================================//
 

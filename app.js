@@ -4,7 +4,7 @@ var bodyParser        = require('body-parser');
 var mongoose          = require('mongoose');
 var passport          = require('passport');
 var LocalStrategy     = require('passport-local');
-var flash             = require('express-flash');
+var flash             = require('connect-flash');
 var Campground        = require("./models/campground");
 var Comment           = require("./models/comment");
 var User              = require("./models/user");
@@ -13,6 +13,9 @@ var campgroundRoutes  = require("./routes/campground");
 var commentRoutes     = require("./routes/comment");
 var indexRoutes       = require("./routes/index");
 var methodOverride    = require('method-override'); 
+require('dotenv').config()
+
+
 // app.use(express.static(__dirname + "/public"));
 
 // seedDB(); terminate seeds//
@@ -31,10 +34,10 @@ app.use(require("express-session")({
   saveUninitialized:false
 }));
 
+app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -42,7 +45,8 @@ passport.deserializeUser(User.deserializeUser());
 /////passing "currentUser" to every template/////////////////
 app.use(function(req,res,next){
   res.locals.currentUser = req.user;
-  res.locals.message = req.flash("error");
+     res.locals.success = req.flash('success');
+  res.locals.error = req.flash("error");
   next();
 })
 
